@@ -6,10 +6,13 @@ Rails.application.routes.draw do
   root to: 'homes#top'
   get "/home/about" => "homes#about", as: "about"
 
-  get 'books/index'
-  get 'books/show'
-  get 'users/edit'
-  get 'users/index'
-  get 'users/show'
+  resources :books, only:[:new, :index, :show]
+  # get 'books/index'
+  # get 'books/show'
+
+  resources :users, only:[:show, :edit, :update, :index]
+  # get 'users/edit'
+  # get 'users/index'
+  # get 'users/show'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
