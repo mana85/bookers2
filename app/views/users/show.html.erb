@@ -11,10 +11,19 @@
 <%= link_to "編集", edit_user_path %>
 
 <h3>Book投稿フォーム</h3>
-<%= form_with model: @book do |f| %>
+<%= form_with model: @book, url: '/books', method: :post do |f| %>
   <label for="inputTitle">Title</label>
   <%= f.text_field :title, id:"inputTitle", placeholder:"本のタイトル"%><br />
   <label for="inputBody">Body</label>
   <%= f.text_area :body, id:"inputBody", placeholder:"本の紹介"%><br />
   <%= f.submit '投稿' %>
+<% end %>
+
+<h3>投稿一覧</h3>
+<% @books.each do |book| %>
+<div>
+  <%= image_tag book.user.get_profile_image(100,100) %>
+  <p>タイトル：<%= book.title %></p>
+  <p>本の紹介：<%= book.body%></p>
+</div>
 <% end %>

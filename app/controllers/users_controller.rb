@@ -15,7 +15,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    # Bookを作ったらここに @books = @user.booksとか書いて該当ユーザが投稿したブックのリストを取得する
+    @books = @user.books
   end
 
   private
@@ -23,4 +23,5 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :introduction, :profile_image)
   end
+
 end
