@@ -8,7 +8,9 @@
   <%= image_tag @user.get_profile_image(100,100) %>
 </div>
 
-<%= link_to "編集", edit_user_path %>
+<% if @user == current_user %>
+  <%= link_to "編集", edit_user_path %>
+<% end %>
 
 <h3>Book投稿フォーム</h3>
 <%= form_with model: @book, url: '/books', method: :post do |f| %>
@@ -23,7 +25,15 @@
 <% @books.each do |book| %>
 <div>
   <%= image_tag book.user.get_profile_image(100,100) %>
-  <p>タイトル：<%= book.title %></p>
+  <p>タイトル：
+    <%= link_to book_path(book.id) do %>
+      <%= book.title %>
+    <% end %>
+  </p>
   <p>本の紹介：<%= book.body%></p>
+  <% if book.user == current_user %>
+    <%= link_to "削除", book_path(book), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+    <%= link_to "編集", edit_book_path(book) %>
+  <% end %>
 </div>
 <% end %>

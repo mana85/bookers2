@@ -4,7 +4,7 @@
 <% @books.each do |book| %>
 <div>
   <%= image_tag book.user.get_profile_image(100,100) %>
-  <p>タイトル：<%= book.title %></p>
+  <p>タイトル：<%= link_to book.title, book_path(book.id) %></p>
   <p>本の紹介：<%= book.body%></p>
 </div>
 <% end %>

@@ -1,5 +1,4 @@
 class BooksController < ApplicationController
-
   def new
     @book = Book.new
   end
@@ -16,13 +15,36 @@ class BooksController < ApplicationController
   end
 
   def show
+    @book = Book.find(params[:id])
+  end
+
+  def edit
+    @book = Book.find(params[:id])
+  end
+
+  def update
+    @book = Book.find(params[:id])
+    @book.update(update_params)
+    redirect_to user_path(@book.user_id)
+  end
+
+  def destroy
+    @book = Book.find(params[:id])
+    @book.destroy
+    redirect_to user_path(@book.user_id)
   end
 
   # 投稿データのストロングパラメータ
   private
 
   def book_params
+    # 投稿はこっちじゃないと動かない
     params.permit(:title, :body)
+  end
+
+  def update_params
+    # 更新はこっちじゃないと動かない…
+    params.require(:book).permit(:title, :body)
   end
 
 end
