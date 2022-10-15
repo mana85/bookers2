@@ -5,14 +5,15 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class="d-flex flex-column vh-100">
 
-    <header>
+    <header class="shadow-sm">
       <% if user_signed_in? %>
       <!--ログイン時のヘッダーのリンク-->
         <li>
@@ -44,6 +45,19 @@
       <% end %>
     </header>
 
+    <main class="mb-auto">
     <%= yield %>
+    </main>
+
+    <footer class="bg-dark text-white pt-5 pb-4">
+      <div class="container">
+        <div class="row no-gutters">
+          <div class="col-md-4">
+            <p>フッターのテスト</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
   </body>
 </html>
