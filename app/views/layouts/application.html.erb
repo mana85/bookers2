@@ -13,47 +13,62 @@
 
   <body class="d-flex flex-column vh-100">
 
-    <header class="shadow-sm">
-      <% if user_signed_in? %>
-      <!--ログイン時のヘッダーのリンク-->
-        <li>
-          <%= link_to "Home", user_path(current_user.id) %>
-        </li>
-        <li>
-          <%= link_to "Books", "/books" %>
-        </li>
-        <li>
-          <%= link_to "Users", "/users" %>
-        </li>
-        <li>
-          <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-        </li>
-      <% else %>
-      <!--ログアウト時のヘッダーのリンク-->
-        <li>
-          <%= link_to "Home", root_path %>
-        </li>
-        <li>
-          <%= link_to "About", about_path %>
-        </li>
-        <li>
-          <%= link_to "新規登録", new_user_registration_path %>
-        </li>
-        <li>
-          <%= link_to "ログイン", new_user_session_path %>
-        </li>
-      <% end %>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+        <div class="container">
+        <a class="navbar-brand" href="/">Bookers</a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto fa-ul">
+          <% if user_signed_in? %>
+            <li class="nav-item active">
+              <%= link_to "<i class='fas fa-home'></i> Home".html_safe, user_path(current_user.id), class: "nav-link text-light" %>
+            </li>
+            <li class="nav-item active">
+              <%= link_to "<i class='fas fa-users'></i> Users".html_safe, "/users", class: "nav-link text-light" %>
+            </li>
+            <li class="nav-item active">
+              <%= link_to "<i class='fas fa-book-open'></i> Books".html_safe, "/books", class: "nav-link text-light" %>
+            </li>
+            <li class="nav-item active">
+              <%= link_to "<i class='fas fa-sign-out-alt'></i> Log out".html_safe, destroy_user_session_path, method: :delete, class: "nav-link text-light" %>
+            </li>
+          <% else %>
+            <li class="nav-item active">
+              <%= link_to "<i class='fas fa-home'></i> Home".html_safe, root_path, class: "nav-link text-light" %>
+            </li>
+            <li class="nav-item active">
+              <%= link_to "<i class='fas fa-link'></i> About".html_safe, about_path, class: "nav-link text-light" %>
+            </li>
+            <li class="nav-item active">
+              <%= link_to "<i class='fas fa-user-plus'></i> Sign up".html_safe, new_user_registration_path, class: "nav-link text-light" %>
+            </li>
+            <li class="nav-item active">
+              <%= link_to "<i class='fas fa-sign-in-alt'></i> Log in".html_safe, new_user_session_path, class: "nav-link text-light" %>
+            </li>
+          <% end %>
+          </ul>
+        </div>
+
+        </div>
+
+      </nav>
     </header>
 
     <main class="mb-auto">
     <%= yield %>
     </main>
 
-    <footer class="bg-dark text-white pt-5 pb-4">
-      <div class="container">
-        <div class="row no-gutters">
-          <div class="col-md-4">
-            <p>フッターのテスト</p>
+    <footer class="footer">
+      <div class="container mt-5">
+        <div class="row">
+          <div class="mx-auto">
+            <p>CopyRight Infratop.inc</p>
           </div>
         </div>
       </div>
