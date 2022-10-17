@@ -1,12 +1,17 @@
 class UsersController < ApplicationController
   def edit
+    is_matching_login_user
     @user = User.find(params[:id])
   end
 
   def update
+    is_matching_login_user
     @user = User.find(params[:id])
-    @user.update(user_params)
-    redirect_to user_path(@user.id)
+    if @user.update(user_params)
+      redirect_to user_path(@user.id)
+    else
+      render :edit
+    end
   end
 
   def index
@@ -24,6 +29,14 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :introduction, :profile_image)
+  end
+
+  def is_matching_login_user
+    user_id = params[:id].to_i
+    login_user_id = current_user.id
+    if(user_id != login_user_id)
+      redirect_to user_path(login_user_id)
+    end
   end
 
 end

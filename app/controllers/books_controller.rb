@@ -6,8 +6,13 @@ class BooksController < ApplicationController
   def create
     @book = Book.new(book_params)
     @book.user_id = current_user.id
-    @book.save
-    redirect_to  book_path(@book.id)
+    if @book.save
+      redirect_to  book_path(@book.id)
+    else
+      @books = Book.all
+      @user = current_user
+      render :index
+    end
   end
 
   def index
@@ -21,13 +26,18 @@ class BooksController < ApplicationController
   end
 
   def edit
+    is_matching_login_user
     @book = Book.find(params[:id])
   end
 
   def update
+    is_matching_login_user
     @book = Book.find(params[:id])
-    @book.update(update_params)
-    redirect_to book_path(@book.id)
+    if @book.update(update_params)
+      redirect_to book_path(@book.id)
+    else
+      render :edit
+    end
   end
 
   def destroy
@@ -47,6 +57,15 @@ class BooksController < ApplicationController
   def update_params
     # 更新はこっちじゃないと動かない…
     params.require(:book).permit(:title, :body)
+  end
+
+  def is_matching_login_user
+    book = Book.find(params[:id])
+    user_id = book.user_id.to_i
+    login_user_id = current_user.id
+    if(user_id != login_user_id)
+      redirect_to "/books"
+    end
   end
 
 end
