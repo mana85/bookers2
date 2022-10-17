@@ -30,9 +30,9 @@
         <div class="form-group">
         <%= form_with model: @book, url: '/books', method: :post do |f| %>
           <label for="inputTitle">Title</label>
-          <%= f.text_field :title, id:"inputTitle", placeholder:"Title", class:"form-control" %><br />
-          <label for="inputBody">Body</label>
-          <%= f.text_area :body, id:"inputBody", placeholder:"Opinion", class:"form-control" %><br />
+          <%= f.text_field :title, id:"inputTitle", class:"form-control" %><br />
+          <label for="inputBody">Opinion</label>
+          <%= f.text_area :body, id:"inputBody", class:"form-control" %><br />
           <%= f.submit 'Create Book', class:"btn btn-success" %>
         <% end %>
         </div>
@@ -44,21 +44,21 @@
       <table class="table table-hover table-inverse">
         <tr>
           <td>
-            <%= image_tag @book.user.get_profile_image(100,100) %><br />
-            <%= link_to @book.user.name, user_path(@book.user.id)%>
+            <%= image_tag @book_show.user.get_profile_image(100,100) %><br />
+            <%= link_to @book_show.user.name, user_path(@book_show.user.id)%>
           </td>
           <td>
-            <%= link_to @book.title, book_path(@book) %>
+            <%= link_to @book_show.title, book_path(@book_show) %>
           </td>
           <td>
-            <%= @book.body%>
+            <%= @book_show.body%>
           </td>
-          <% if @book.user == current_user %>
+          <% if @book_show.user == current_user %>
           <td>
-            <%= link_to "Edit", edit_book_path(@book), class:"btn btn-success  btn-sm" %>
+            <%= link_to "Edit", edit_book_path(@book_show), class:"btn btn-success  btn-sm" %>
           </td>
           <td>
-            <%= link_to "Destroy", book_path(@book), method: :delete, class:"btn btn-danger  btn-sm", "data-confirm" => "本当に削除しますか？"  %>
+            <%= link_to "Destroy", book_path(@book_show), method: :delete, class:"btn btn-danger  btn-sm", "data-confirm" => "本当に削除しますか？"  %>
           </td>
           <% end %>
         </tr>
