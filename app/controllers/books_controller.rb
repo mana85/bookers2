@@ -17,11 +17,13 @@ class BooksController < ApplicationController
   end
 
   def index
+    @book = Book.new
     @books = Book.all
     @user = current_user
   end
 
   def show
+    @book = Book.new
     @book_show = Book.find(params[:id])
     @user = User.find(@book_show.user_id)
   end
@@ -34,7 +36,7 @@ class BooksController < ApplicationController
   def update
     is_matching_login_user
     @book = Book.find(params[:id])
-    if @book.update(update_params)
+    if @book.update(book_params)
       flash[:notice] = "You have updated book successfully."
       redirect_to book_path(@book.id)
     else
@@ -52,12 +54,6 @@ class BooksController < ApplicationController
   private
 
   def book_params
-    # 投稿はこっちじゃないと動かない
-    params.permit(:title, :body)
-  end
-
-  def update_params
-    # 更新はこっちじゃないと動かない…
     params.require(:book).permit(:title, :body)
   end
 
